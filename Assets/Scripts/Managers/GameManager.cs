@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour {
 		gameDaddy.currentHealth += difference;
 		gameDaddy.currentHealth = Mathf.Clamp (gameDaddy.currentHealth, 0, 100);
 	}
+
+	static public float getGameTimer(){return gameDaddy.gameTimer;}
 		
 	static public ItemBlock GetCurrentItem(){return GameManager.gameDaddy.currentItem;}
 	static public void AddCurrentItemToList(ItemBlock newItem){gameDaddy.currentItems.Add (newItem);}

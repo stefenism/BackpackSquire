@@ -3877,6 +3877,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1909852778745062
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4687682838951322}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1911605928442766
 GameObject:
   m_ObjectHideFlags: 1
@@ -5255,7 +5270,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4687682838951322}
   m_Father: {fileID: 4973526072827458}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6620,6 +6636,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4489874406605828}
   m_RootOrder: 111
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4687682838951322
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909852778745062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.05, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4375972941290636}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4687711114671126
 Transform:
@@ -9881,7 +9910,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.769875, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9892,7 +9921,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 21, y: 4}
+  m_Size: {x: 24.53975, y: 4}
   m_EdgeRadius: 0
 --- !u!61 &61381652948476212
 BoxCollider2D:
@@ -13735,6 +13764,27 @@ MonoBehaviour:
   defaultColor: {r: 0.43, g: 0.43, b: 0.43, a: 1}
   selectedColor: {r: 0.43, g: 0.43, b: 0, a: 1}
   conveyorSelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  spawnableItems:
+  - {fileID: 1118347332841974, guid: 845d3b17d40a27f46bdff8e262331042, type: 2}
+  - {fileID: 1503380508995658, guid: 7e0be6b46e85480439837855c8d4704f, type: 2}
+  - {fileID: 1193254144648060, guid: b69de7985ddcec2429f037663eb280de, type: 2}
+  - {fileID: 1238871867585000, guid: 418f8b833006f0a4aac2c1d2d7e1288e, type: 2}
+  - {fileID: 1708307485850980, guid: c622cb5b2a501924484896789530cea2, type: 2}
+  - {fileID: 1708307485850980, guid: 3cb3e7c9a306f1d4fa4ad58f1554cf3f, type: 2}
+  - {fileID: 1233082457715888, guid: d5dfa8bc33ab82b4e96b6048b60bf853, type: 2}
+  - {fileID: 1638966014765824, guid: e775deb0cf464fd49bb90605781b0dd8, type: 2}
+  - {fileID: 1889407487243700, guid: e018da21beb009c45a08c86156890af4, type: 2}
+  - {fileID: 1110252350930850, guid: 31775c0f1b750c14fbb1c575d20b1dc9, type: 2}
+  - {fileID: 1952968358385580, guid: 93212ff7cf652a84c986d9332b334ce6, type: 2}
+  - {fileID: 1651900005986916, guid: 9da0060225314514cb2f6c32115aa55b, type: 2}
+  - {fileID: 1459047149194032, guid: 98622cc540dfedf478e0f92bed477a47, type: 2}
+  - {fileID: 1130514609726734, guid: 441633bc7238d1a4cafc8fa0a4a1dccf, type: 2}
+  - {fileID: 1997227298273672, guid: 64d75525c253590468fd17f5b56eb26e, type: 2}
+  - {fileID: 1510157678162336, guid: 92dd741864bc50c498c46d46c3f214c5, type: 2}
+  - {fileID: 1564243961104718, guid: c4f25bef105176241ac7a30b0033f5dd, type: 2}
+  - {fileID: 1782834833714680, guid: c00653bc2fbb0694d986c2256f1cad78, type: 2}
+  spawnPoint: {fileID: 4687682838951322}
+  timeBeforeSpawning: 5
 --- !u!114 &114091758375613016
 MonoBehaviour:
   m_ObjectHideFlags: 1

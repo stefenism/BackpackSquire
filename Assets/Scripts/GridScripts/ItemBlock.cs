@@ -10,6 +10,8 @@ public class ItemBlock : GridObject {
 		DRAGGING,
 		SNAPPED,
 		COLLIDING,
+		CONVEYOR,
+		DROPPING,
 	}
 
 	DragState dragState = DragState.IDLE;
@@ -26,14 +28,23 @@ public class ItemBlock : GridObject {
 	public AudioClip rotateSound;
 
 	private float fallTimer = 0;
+	private float leftTimer = 0;
 
 	// Use this for initialization
 	void Start () {
+		initialize ();
+	}
+
+	public void initialize()
+	{
 		sprite = GetComponent<SpriteRenderer> ();
 		collider = GetComponent<Collider2D> ();
 		value = GetComponent<ItemValues> ();
 
 		sprite.color = defaultColor;
+
+		setIdle ();
+		setConveyor ();
 	}
 	
 	// Update is called once per frame
@@ -57,7 +68,7 @@ public class ItemBlock : GridObject {
 
 	public virtual void checkDrag()
 	{
-		if (isSnapped ())
+		if (isSnapped () || isDropping())
 			return;
 		
 		if (isMouseOver ())
@@ -80,14 +91,20 @@ public class ItemBlock : GridObject {
 
 		if (Input.GetMouseButtonUp (0))
 		{
-			setDropped ();
-			setDragIdle ();
+			if (GridManager.isOnConveyor (points.itemGridPoints))
+				GridManager.getConveyor ().addToConveyor (this);
+			else
+			{
+				setDropped ();
+				if(!isInConveyor())
+					setDragIdle ();
+			}
 		}
 	}
 
 	public virtual void checkSnap()
 	{
-		if (!isSnapped ())
+		if (!isSnapped () || isDropping())
 			return;
 
 		if (isMouseOver ())
@@ -141,6 +158,19 @@ public class ItemBlock : GridObject {
 			}
 		}
 
+	}		
+
+	public void checkLeft()
+	{
+		leftTimer += Time.fixedDeltaTime;
+		if (isInConveyor () && GameManager.GetCurrentItem() != this)
+		{
+			if (leftTimer >= Time.fixedDeltaTime * fixedFramesToWaitForFall)
+			{
+				leftTimer = 0;
+				doMoveLeft ();
+			}				
+		}
 	}
 
 	void doRotation()
@@ -168,11 +198,17 @@ public class ItemBlock : GridObject {
 	}
 
 	void doFall()
-	{
-		Debug.Log ("doin' fall");
+	{		
 		Vector2 newPosition = transform.parent.position;
 		newPosition.y--;
 		SnapPosition (newPosition, this);
+	}
+
+	void doMoveLeft()
+	{		
+		Vector2 newPosition = transform.parent.position;
+		newPosition.x--;
+		SnapLeft (newPosition);
 	}
 
 	void setDropped()
@@ -182,14 +218,33 @@ public class ItemBlock : GridObject {
 		sprite.color = defaultColor;
 	}
 
+	void doConveyorDrop()
+	{	
+		if (isDropping ())
+			return;
+
+		setDropping ();
+		GridManager.getConveyor ().removeFromList (this);
+		transform.parent.gameObject.AddComponent<Rigidbody2D> ();
+		Destroy (transform.parent.gameObject, 5);
+
+
+
+	}		
+
 	public bool isDragging(){return dragState == DragState.DRAGGING;}
 	public bool isSnapped(){return dragState == DragState.SNAPPED;}
 	public bool isColliding(){return dragState == DragState.COLLIDING;}
+	public bool isInConveyor(){return dragState == DragState.CONVEYOR;}
+	public bool isIdle(){return dragState == DragState.IDLE;}
+	public bool isDropping(){return dragState == DragState.DROPPING;}
 
 	public void setDragging(){dragState = DragState.DRAGGING;}
 	public void setDragIdle(){dragState = DragState.IDLE;}
 	public void setSnapped(){dragState = DragState.SNAPPED;}
 	public void setColliding(){dragState = DragState.COLLIDING;}
+	public void setConveyor(){dragState = DragState.CONVEYOR;}
+	public void setDropping(){dragState = DragState.DROPPING;}
 
 	public void SnapPosition(Vector2 newPosition, ItemBlock testItem = null)
 	{
@@ -198,10 +253,17 @@ public class ItemBlock : GridObject {
 
 		if (!GridManager.isInGrid (points.itemGridPoints) || !GridManager.isSpaceAvailable (points.itemGridPoints, testItem))
 			transform.parent.position = currentPosition;
-
-		Debug.Log ("is point in grid: " + GridManager.isInGrid (points.itemGridPoints));
-		Debug.Log("is set of points available: " + GridManager.isSpaceAvailable(points.itemGridPoints));
 	}		
+
+	public void SnapLeft(Vector2 newPosition)
+	{
+		transform.parent.position = newPosition;
+
+		if (!GridManager.isOnConveyor (points.itemGridPoints))
+		{			
+			doConveyorDrop ();
+		}			
+	}
 
 	public virtual void removeItem()
 	{
