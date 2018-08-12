@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4817411410821378}
   - component: {fileID: 212148152820984620}
-  - component: {fileID: 114364720390143878}
+  - component: {fileID: 114454556040497330}
   - component: {fileID: 114311213303172856}
   - component: {fileID: 68289043904302208}
   m_Layer: 0
@@ -143,7 +143,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1459047149194032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.42, y: -10.34, z: 0}
+  m_LocalPosition: {x: 6.0429006, y: -3.854916, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4817411410821378}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGridPoints: []
   itemGridPointss: []
---- !u!114 &114364720390143878
+--- !u!114 &114454556040497330
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,19 +276,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1702317198098828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad4b53da0a2eb9448cc49e16d0f9a63, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fd35d99584a78b44b6636248a5c4859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   collider: {fileID: 0}
   defaultColor: {r: 0.43, g: 0.43, b: 0.43, a: 1}
   selectedColor: {r: 0.43, g: 0.43, b: 0, a: 1}
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 4308979713830414}
   dragColor: {r: 0.43, g: 0.18, b: 0.43, a: 0.5}
   points: {fileID: 114314791042540326}
   rotateSpeed: 10
   fixedFramesToWaitForFall: 60
   rotateSound: {fileID: 8300000, guid: 640e1be215abcde4095620ff30eed3ec, type: 3}
+  healValue: 50
 --- !u!212 &212148152820984620
 SpriteRenderer:
   m_ObjectHideFlags: 1

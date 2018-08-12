@@ -68,8 +68,8 @@ GameObject:
   - component: {fileID: 4999309628911532}
   - component: {fileID: 212902771984648284}
   - component: {fileID: 61616241545266038}
-  - component: {fileID: 114709315515055152}
   - component: {fileID: 114279999761830200}
+  - component: {fileID: 114185236436657510}
   m_Layer: 0
   m_Name: Blocks
   m_TagString: Untagged
@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564243961104718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.47, y: -7.86, z: 0}
+  m_LocalPosition: {x: 9.202634, y: -5.4857454, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4999309628911532}
@@ -229,6 +229,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGridPoints: []
   itemGridPointss: []
+--- !u!114 &114185236436657510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784549334985952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd35d99584a78b44b6636248a5c4859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  collider: {fileID: 0}
+  defaultColor: {r: 0.43, g: 0.43, b: 0.43, a: 1}
+  selectedColor: {r: 0.43, g: 0.43, b: 0, a: 1}
+  itemSprite: {fileID: 4276940056556602}
+  dragColor: {r: 0.43, g: 0.18, b: 0.43, a: 0.5}
+  points: {fileID: 114142417693584644}
+  rotateSpeed: 10
+  fixedFramesToWaitForFall: 60
+  rotateSound: {fileID: 8300000, guid: 640e1be215abcde4095620ff30eed3ec, type: 3}
+  healValue: 25
 --- !u!114 &114279999761830200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,27 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowPotentialWorth: 0
   highPotentialWorth: 0
---- !u!114 &114709315515055152
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784549334985952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad4b53da0a2eb9448cc49e16d0f9a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  collider: {fileID: 0}
-  defaultColor: {r: 0.43, g: 0.43, b: 0.43, a: 1}
-  selectedColor: {r: 0.43, g: 0.43, b: 0, a: 1}
-  itemSprite: {fileID: 4276940056556602}
-  dragColor: {r: 0.43, g: 0.18, b: 0.43, a: 0.5}
-  points: {fileID: 114142417693584644}
-  rotateSpeed: 10
-  fixedFramesToWaitForFall: 60
-  rotateSound: {fileID: 8300000, guid: 640e1be215abcde4095620ff30eed3ec, type: 3}
 --- !u!212 &212297503862858492
 SpriteRenderer:
   m_ObjectHideFlags: 1

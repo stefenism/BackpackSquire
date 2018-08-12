@@ -69,11 +69,13 @@ public class GameManager : MonoBehaviour {
 	static public void addGold(int scrilla)
 	{
 		gameDaddy.currentGoldValue += scrilla;
+		gameDaddy.currentGoldValue = Mathf.Clamp (gameDaddy.currentGoldValue, 0, System.Int32.MaxValue);
 	}
 
 	static public void changeHealth(int difference)
 	{
 		gameDaddy.currentHealth += difference;
+		gameDaddy.currentHealth = Mathf.Clamp (gameDaddy.currentHealth, 0, 100);
 	}
 		
 	static public ItemBlock GetCurrentItem(){return GameManager.gameDaddy.currentItem;}

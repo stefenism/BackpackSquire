@@ -55,7 +55,7 @@ public class ItemBlock : GridObject {
 		base.CheckMouseOver ();
 	}
 
-	void checkDrag()
+	public virtual void checkDrag()
 	{
 		if (isSnapped ())
 			return;
@@ -85,7 +85,7 @@ public class ItemBlock : GridObject {
 		}
 	}
 
-	void checkSnap()
+	public virtual void checkSnap()
 	{
 		if (!isSnapped ())
 			return;
@@ -201,6 +201,12 @@ public class ItemBlock : GridObject {
 
 		Debug.Log ("is point in grid: " + GridManager.isInGrid (points.itemGridPoints));
 		Debug.Log("is set of points available: " + GridManager.isSpaceAvailable(points.itemGridPoints));
+	}		
+
+	public virtual void removeItem()
+	{
+		GridManager.removeFromList (this);
+		GameManager.addGold (-value.getWorth ());
 	}
 
 	IEnumerator rotateBlock()
