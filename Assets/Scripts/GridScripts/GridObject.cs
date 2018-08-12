@@ -11,7 +11,7 @@ public class GridObject : MonoBehaviour {
 	}
 
 	public SpriteRenderer sprite;
-	public BoxCollider2D collider;
+	public Collider2D collider;
 	BlockState blockState = BlockState.IDLE;
 
 	public Color defaultColor = new Color(0.43f,0.43f,0.43f);
@@ -20,7 +20,7 @@ public class GridObject : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<SpriteRenderer> ();
-		collider = GetComponent<BoxCollider2D> ();
+		collider = GetComponent<Collider2D> ();
 		//sprite.color = defaultColor;
 	}
 

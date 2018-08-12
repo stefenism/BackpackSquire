@@ -13,18 +13,26 @@ public class ItemBlock : GridObject {
 	}
 
 	DragState dragState = DragState.IDLE;
-	Color dragColor = new Color(0.43f,0.18f,0.43f, 0.5f);
+	ItemValues value;
+
+	public Transform itemSprite;
+	//Collider2D collider;
+	public Color dragColor = new Color(0.43f,0.18f,0.43f, 0.5f);
 
 	public ItemPoints points;
 	public float rotateSpeed = 10;
 	public float fixedFramesToWaitForFall = 5;
+
+	public AudioClip rotateSound;
 
 	private float fallTimer = 0;
 
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<SpriteRenderer> ();
-		collider = GetComponent<BoxCollider2D> ();
+		collider = GetComponent<Collider2D> ();
+		value = GetComponent<ItemValues> ();
+
 		sprite.color = defaultColor;
 	}
 	
@@ -84,6 +92,8 @@ public class ItemBlock : GridObject {
 
 		if (isMouseOver ())
 		{
+			if (GameManager.GetCurrentItem () != null)
+				sprite.color = dragColor;
 			if (Input.GetMouseButton (0))
 			{
 				if (GameManager.GetCurrentItem () == null)
@@ -97,10 +107,13 @@ public class ItemBlock : GridObject {
 		if (Input.GetMouseButtonUp (0))
 		{
 			setDropped ();
-			sprite.color = defaultColor;
 
 			if (!GridManager.IsInCurrentList (this))
+			{
 				GridManager.AddCurrentItemToList (this);
+				GameManager.addGold (value.getWorth());
+			}
+				
 		}
 	}
 
@@ -139,6 +152,7 @@ public class ItemBlock : GridObject {
 				transform.parent.Rotate (0, 0, -90);
 			else
 			{
+				AudioManager.playSfx (rotateSound);
 				transform.parent.Rotate (0, 0, -90);
 				StopAllCoroutines ();
 				StartCoroutine (rotateBlock ());
@@ -146,6 +160,7 @@ public class ItemBlock : GridObject {
 		}
 		else
 		{
+			AudioManager.playSfx (rotateSound);
 			transform.parent.Rotate (0, 0, -90);
 			StopAllCoroutines ();
 			StartCoroutine (rotateBlock ());
@@ -164,6 +179,7 @@ public class ItemBlock : GridObject {
 	{
 		setIdle ();
 		GameManager.setCurrentItem (null);
+		sprite.color = defaultColor;
 	}
 
 	public bool isDragging(){return dragState == DragState.DRAGGING;}
@@ -197,6 +213,7 @@ public class ItemBlock : GridObject {
 			transform.rotation = Quaternion.Slerp(oldRotation, newRotation, t);
 			yield return null;
 		}
+		transform.rotation = transform.parent.rotation;
 
 
 	}

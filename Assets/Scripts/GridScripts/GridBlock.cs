@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridBlock : GridObject {
-	
+
+	public AudioClip gridSelectSound;
+
 	public override void Update () {
 		base.Update ();
 	}
@@ -19,6 +21,8 @@ public class GridBlock : GridObject {
 		base.doMouseOverState ();
 		MouseUtilities.currentGridPoint = transform.position;
 		checkSnap ();
+
+		AudioManager.playSfx (gridSelectSound);
 	}
 
 	void checkSnap()

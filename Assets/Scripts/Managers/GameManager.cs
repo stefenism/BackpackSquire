@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour {
 	public List<ItemBlock> currentItems = new List<ItemBlock>();
 	private List<GridBlock> currentGrid = new List<GridBlock> ();
 
+	private int currentGoldValue = 0;
+	private int currentHealth = 100;
+	private float gameTimer = 0;
+	private float healthTimer = 0;
+
 	void Awake()
 	{
 		if (gameDaddy == null)
@@ -20,6 +25,18 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 
 		Initialize ();
+	}
+
+	void Update()
+	{
+		gameTimer += Time.deltaTime;
+		healthTimer += Time.deltaTime;
+
+		if (healthTimer >= 1)
+		{
+			healthTimer = 0;
+			changeHealth (-1);
+		}
 	}
 
 	void Initialize()
@@ -47,6 +64,16 @@ public class GameManager : MonoBehaviour {
 		if (gameDaddy.currentItems.Contains (newItem))
 			return true;
 		return false;
+	}
+
+	static public void addGold(int scrilla)
+	{
+		gameDaddy.currentGoldValue += scrilla;
+	}
+
+	static public void changeHealth(int difference)
+	{
+		gameDaddy.currentHealth += difference;
 	}
 		
 	static public ItemBlock GetCurrentItem(){return GameManager.gameDaddy.currentItem;}
