@@ -9,12 +9,17 @@ public class ItemBlock : GridObject {
 		IDLE,
 		DRAGGING,
 		SNAPPED,
+		COLLIDING,
 	}
 
 	DragState dragState = DragState.IDLE;
 	Color dragColor = new Color(0.43f,0.18f,0.43f, 0.5f);
 
+	public ItemPoints points;
 	public float rotateSpeed = 10;
+	public float fixedFramesToWaitForFall = 5;
+
+	private float fallTimer = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -30,12 +35,14 @@ public class ItemBlock : GridObject {
 		checkDrag ();
 		checkSnap ();
 		checkRotation ();
+
+		checkBelow ();
 	}
 
 	public override void CheckMouseOver()
 	{
-		if (isSnapped () || isDragging())
-			return;
+//		if (isSnapped () || isDragging())
+//			return;
 		
 		base.CheckMouseOver ();
 	}
@@ -49,18 +56,24 @@ public class ItemBlock : GridObject {
 		{
 			if (Input.GetMouseButton (0))
 			{
-				setDragging ();
-				sprite.color = dragColor;
-				GameManager.setCurrentItem (this);
+				if (GameManager.GetCurrentItem () == null)
+				{
+					setDragging ();
+					sprite.color = dragColor;
+					GameManager.setCurrentItem (this);
+				}
 			}
 		}
 
 		if (isDragging ())
-			SnapPosition(MouseUtilities.getMouseWorldPosition ());
+		{
+			transform.parent.position = MouseUtilities.getMouseWorldPosition ();
+		}
 
 		if (Input.GetMouseButtonUp (0))
 		{
 			setDropped ();
+			setDragIdle ();
 		}
 	}
 
@@ -68,15 +81,26 @@ public class ItemBlock : GridObject {
 	{
 		if (!isSnapped ())
 			return;
-		
-//		if (MouseUtilities.currentGridPoint == MouseUtilities.invalidGridPoint)
-//		{
-//			setDragging ();
-//		}
+
+		if (isMouseOver ())
+		{
+			if (Input.GetMouseButton (0))
+			{
+				if (GameManager.GetCurrentItem () == null)
+				{
+					sprite.color = dragColor;
+					GameManager.setCurrentItem (this);
+				}
+			}
+		}
 
 		if (Input.GetMouseButtonUp (0))
 		{
 			setDropped ();
+			sprite.color = defaultColor;
+
+			if (!GridManager.IsInCurrentList (this))
+				GridManager.AddCurrentItemToList (this);
 		}
 	}
 
@@ -85,33 +109,82 @@ public class ItemBlock : GridObject {
 		if (isSnapped () || isDragging ())
 		{
 			if (Input.GetMouseButtonDown (1))
-				doRotation ();
+			{
+				if (GameManager.GetCurrentItem () == this)
+					doRotation ();
+			}
 		}
+	}
+
+	void checkBelow()
+	{
+		fallTimer += Time.fixedDeltaTime;
+		if (isSnapped () && !isMouseOver ())
+		{
+			if (fallTimer >= Time.fixedDeltaTime * fixedFramesToWaitForFall)
+			{
+				fallTimer = 0;
+				doFall ();
+			}
+		}
+
 	}
 
 	void doRotation()
 	{
+		transform.parent.Rotate (0, 0, 90);
+		if (isSnapped ())
+		{
+			if (!GridManager.isInGrid (points.itemGridPoints) || !GridManager.isSpaceAvailable (points.itemGridPoints))
+				transform.parent.Rotate (0, 0, -90);
+			else
+			{
+				transform.parent.Rotate (0, 0, -90);
+				StopAllCoroutines ();
+				StartCoroutine (rotateBlock ());
+			}
+		}
+		else
+		{
+			transform.parent.Rotate (0, 0, -90);
+			StopAllCoroutines ();
+			StartCoroutine (rotateBlock ());
+		}
+	}
 
-		StopAllCoroutines ();
-		StartCoroutine(rotateBlock());
+	void doFall()
+	{
+		Debug.Log ("doin' fall");
+		Vector2 newPosition = transform.parent.position;
+		newPosition.y--;
+		SnapPosition (newPosition, this);
 	}
 
 	void setDropped()
 	{
 		setIdle ();
-		setDragIdle ();
 		GameManager.setCurrentItem (null);
 	}
 
 	public bool isDragging(){return dragState == DragState.DRAGGING;}
 	public bool isSnapped(){return dragState == DragState.SNAPPED;}
+	public bool isColliding(){return dragState == DragState.COLLIDING;}
+
 	public void setDragging(){dragState = DragState.DRAGGING;}
 	public void setDragIdle(){dragState = DragState.IDLE;}
 	public void setSnapped(){dragState = DragState.SNAPPED;}
+	public void setColliding(){dragState = DragState.COLLIDING;}
 
-	public void SnapPosition(Vector2 newPosition)
+	public void SnapPosition(Vector2 newPosition, ItemBlock testItem = null)
 	{
+		Vector2 currentPosition = transform.parent.position;
 		transform.parent.position = newPosition;
+
+		if (!GridManager.isInGrid (points.itemGridPoints) || !GridManager.isSpaceAvailable (points.itemGridPoints, testItem))
+			transform.parent.position = currentPosition;
+
+		Debug.Log ("is point in grid: " + GridManager.isInGrid (points.itemGridPoints));
+		Debug.Log("is set of points available: " + GridManager.isSpaceAvailable(points.itemGridPoints));
 	}
 
 	IEnumerator rotateBlock()
@@ -124,5 +197,7 @@ public class ItemBlock : GridObject {
 			transform.rotation = Quaternion.Slerp(oldRotation, newRotation, t);
 			yield return null;
 		}
+
+
 	}
 }

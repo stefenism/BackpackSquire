@@ -49,9 +49,9 @@ public class GridObject : MonoBehaviour {
 			blockState = BlockState.IDLE;
 			doIdleState ();
 		}
-
-		Debug.Log ("current grid point: " + MouseUtilities.currentGridPoint);
 	}
+
+	public Collider2D getCollider(){return collider;}
 
 	public virtual void doIdleState()
 	{

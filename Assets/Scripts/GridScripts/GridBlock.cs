@@ -32,6 +32,7 @@ public class GridBlock : GridObject {
 
 		if (currentItem != null && currentItem.isSnapped ())
 		{
+			Debug.Log ("trying to move while snapped");
 			currentItem.SnapPosition (transform.position);
 		}
 	}
