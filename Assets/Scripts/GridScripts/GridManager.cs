@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour {
 
 	public List<GridBlock> gridSpaces = new List<GridBlock>();
 	public List<ItemBlock> itemsInGrid = new List<ItemBlock> ();
+	public Transform gridBlockContainer;
 
 	static BoxCollider2D gridCollider;
 
@@ -25,7 +26,7 @@ public class GridManager : MonoBehaviour {
 	void Start () 
 	{
 		gridCollider = GetComponent<BoxCollider2D> ();
-		foreach (Transform child in transform)
+		foreach (Transform child in gridBlockContainer)
 		{
 			GridBlock gridBlock = child.GetComponent<GridBlock> ();
 			if (gridBlock != null)
