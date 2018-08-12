@@ -26,4 +26,9 @@ public class OffsetScroll : MonoBehaviour
     {
         m_Material.mainTextureOffset = savedOffset;
     }
+
+	public void stopScroll()
+	{
+		scrollSpeed = 0;
+	}
 }

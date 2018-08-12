@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,12 +10,18 @@ public class GameManager : MonoBehaviour {
 
 	public ItemBlock currentItem;
 	public List<ItemBlock> currentItems = new List<ItemBlock>();
+	public KnightController knight;
+	public OffsetScroll background;
+	public Slider healthSlider;
+	public TextMesh goldText;
 	private List<GridBlock> currentGrid = new List<GridBlock> ();
 
 	private int currentGoldValue = 0;
 	private int currentHealth = 100;
 	private float gameTimer = 0;
 	private float healthTimer = 0;
+
+	const string ENDSCREENSTRING = "endScreen";
 
 	void Awake()
 	{
@@ -37,6 +45,9 @@ public class GameManager : MonoBehaviour {
 			healthTimer = 0;
 			changeHealth (-1);
 		}
+
+		if (Input.GetKeyDown (KeyCode.E))
+			gameDaddy.currentHealth = 0;
 	}
 
 	void Initialize()
@@ -70,12 +81,32 @@ public class GameManager : MonoBehaviour {
 	{
 		gameDaddy.currentGoldValue += scrilla;
 		gameDaddy.currentGoldValue = Mathf.Clamp (gameDaddy.currentGoldValue, 0, System.Int32.MaxValue);
+
+		gameDaddy.goldText.text = "$" + gameDaddy.currentGoldValue;
 	}
 
 	static public void changeHealth(int difference)
 	{
 		gameDaddy.currentHealth += difference;
 		gameDaddy.currentHealth = Mathf.Clamp (gameDaddy.currentHealth, 0, 100);
+
+		gameDaddy.healthSlider.value = gameDaddy.currentHealth / 100f;
+
+		if (gameDaddy.currentHealth <= 0)
+			gameDaddy.gameOver ();
+	}
+
+	void gameOver()
+	{
+		knight.setAsDead ();
+		background.stopScroll ();
+
+		Invoke ("switchScreen", 3);
+	}
+
+	void switchScreen()
+	{
+		SceneManager.LoadScene (ENDSCREENSTRING, LoadSceneMode.Additive);
 	}
 
 	static public float getGameTimer(){return gameDaddy.gameTimer;}
