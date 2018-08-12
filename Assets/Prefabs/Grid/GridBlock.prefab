@@ -78,6 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faebd730c7156c14cbd1e993cff66210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  collider: {fileID: 0}
+  defaultColor: {r: 0.43, g: 0.43, b: 0.43, a: 1}
+  selectedColor: {r: 0.43, g: 0.43, b: 0, a: 1}
+  gridSelectSound: {fileID: 8300000, guid: 0c55ba9a0b6e07f45927cb84a9f48c0c, type: 3}
 --- !u!212 &212946253005367640
 SpriteRenderer:
   m_ObjectHideFlags: 1

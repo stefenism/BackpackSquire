@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour {
 
-	static List<GridBlock> gridSpaces = new List<GridBlock>();
-	static List<ItemBlock> itemsInGrid = new List<ItemBlock> ();
+	public static GridManager gridDaddy = null;
+
+	public List<GridBlock> gridSpaces = new List<GridBlock>();
+	public List<ItemBlock> itemsInGrid = new List<ItemBlock> ();
 
 	static BoxCollider2D gridCollider;
+
+	void Awake()
+	{
+		if (gridDaddy == null)
+			gridDaddy = this;
+		else if (gridDaddy == this)
+			Destroy (gameObject);
+
+		DontDestroyOnLoad (gameObject);
+
+	}
 
 	void Start () 
 	{
@@ -25,18 +38,23 @@ public class GridManager : MonoBehaviour {
 		
 	}
 
+	static public void removeFromList(ItemBlock removeItem)
+	{
+		gridDaddy.itemsInGrid.Remove (removeItem);
+	}
+
 	static public bool IsInCurrentList(ItemBlock newItem)
 	{
-		if (itemsInGrid.Contains (newItem))
+		if (gridDaddy.itemsInGrid.Contains (newItem))
 			return true;
 		return false;
 	}
 
 	static public bool isSpaceAvailable(List<Transform> newPositions, ItemBlock testItem = null)
 	{
-		if (itemsInGrid.Count > 0)
+		if (gridDaddy.itemsInGrid.Count > 0)
 		{
-			foreach (ItemBlock item in itemsInGrid)
+			foreach (ItemBlock item in gridDaddy.itemsInGrid)
 				if (item != GameManager.GetCurrentItem () && testItem == null)
 				{
 					foreach (Transform inGridItemPoints in item.points.itemGridPoints)
@@ -65,5 +83,5 @@ public class GridManager : MonoBehaviour {
 		return true;
 	}
 
-	static public void AddCurrentItemToList(ItemBlock newItem){itemsInGrid.Add (newItem);}
+	static public void AddCurrentItemToList(ItemBlock newItem){gridDaddy.itemsInGrid.Add (newItem);}
 }
