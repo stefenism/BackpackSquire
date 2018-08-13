@@ -319,8 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68c24e1265184364988876f13a294cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowPotentialWorth: 0
-  highPotentialWorth: 0
+  lowPotentialWorth: 4
+  highPotentialWorth: 8
 --- !u!212 &212111097362116268
 SpriteRenderer:
   m_ObjectHideFlags: 1

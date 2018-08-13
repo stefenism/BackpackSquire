@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68c24e1265184364988876f13a294cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowPotentialWorth: 0
-  highPotentialWorth: 0
+  lowPotentialWorth: 5
+  highPotentialWorth: 10
 --- !u!212 &212461952684891806
 SpriteRenderer:
   m_ObjectHideFlags: 1
