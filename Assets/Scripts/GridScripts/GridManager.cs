@@ -6,6 +6,8 @@ public class GridManager : MonoBehaviour {
 
 	public static GridManager gridDaddy = null;
 
+	ConveyorSpawner conveyor;
+
 	public List<GridBlock> gridSpaces = new List<GridBlock>();
 	public List<ItemBlock> itemsInGrid = new List<ItemBlock> ();
 	public Transform gridBlockContainer;
@@ -26,6 +28,8 @@ public class GridManager : MonoBehaviour {
 	void Start () 
 	{
 		gridCollider = GetComponent<BoxCollider2D> ();
+		conveyor = GetComponentInChildren<ConveyorSpawner> ();
+
 		foreach (Transform child in gridBlockContainer)
 		{
 			GridBlock gridBlock = child.GetComponent<GridBlock> ();
@@ -83,6 +87,21 @@ public class GridManager : MonoBehaviour {
 				return false;
 		return true;
 	}
+
+	static public bool isOnConveyor(List<Transform> newPositions)
+	{
+		int yesses = 0;
+		foreach (Transform itemPoint in newPositions)
+			if (gridDaddy.conveyor.getCollider ().bounds.Contains (itemPoint.position))
+				yesses++;
+
+		if (yesses == 0)
+			return false;
+		else
+			return true;
+	}
+
+	static public ConveyorSpawner getConveyor(){return gridDaddy.conveyor;}
 
 	static public void AddCurrentItemToList(ItemBlock newItem){gridDaddy.itemsInGrid.Add (newItem);}
 }
