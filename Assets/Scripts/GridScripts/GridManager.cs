@@ -101,6 +101,13 @@ public class GridManager : MonoBehaviour {
 			return true;
 	}
 
+	static public bool isInsideConveyer(Vector2 newPosition)
+	{
+		if (gridDaddy.conveyor.collider.bounds.Contains (newPosition))
+			return true;
+		return false;
+	}
+
 	static public ConveyorSpawner getConveyor(){return gridDaddy.conveyor;}
 
 	static public void AddCurrentItemToList(ItemBlock newItem){gridDaddy.itemsInGrid.Add (newItem);}

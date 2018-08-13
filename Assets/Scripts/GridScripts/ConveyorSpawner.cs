@@ -33,7 +33,7 @@ public class ConveyorSpawner : GridObject {
 		{
 			GameManager.GetCurrentItem ().setIdle ();
 			GameManager.GetCurrentItem ().setDragging();
-			conveyorItems.Add (GameManager.GetCurrentItem ());
+			//conveyorItems.Add (GameManager.GetCurrentItem ());
 			GridManager.removeFromList (GameManager.GetCurrentItem ());
 			GameManager.GetCurrentItem ().removeItem ();
 		}
@@ -42,9 +42,11 @@ public class ConveyorSpawner : GridObject {
 		{
 			if (Input.GetMouseButtonUp (0))
 			{				
+				Debug.Log ("adding item back");
 				GameManager.GetCurrentItem ().setIdle ();
 				GameManager.GetCurrentItem ().setConveyor ();
 				conveyorItems.Add (GameManager.GetCurrentItem ());
+				GameManager.setCurrentItem (null);
 			}				
 		}
 	}

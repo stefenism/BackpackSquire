@@ -23,7 +23,7 @@ public class ItemBlock : GridObject {
 
 	public ItemPoints points;
 	public float rotateSpeed = 10;
-	public float fixedFramesToWaitForFall = 5;
+	public float fixedFramesToWaitForFall = 3;
 
 	public AudioClip rotateSound;
 
@@ -77,6 +77,9 @@ public class ItemBlock : GridObject {
 			{
 				if (GameManager.GetCurrentItem () == null)
 				{
+					if (isInConveyor())
+						GridManager.getConveyor ().removeFromList (this);
+					
 					setDragging ();
 					sprite.color = dragColor;
 					GameManager.setCurrentItem (this);
@@ -91,7 +94,7 @@ public class ItemBlock : GridObject {
 
 		if (Input.GetMouseButtonUp (0))
 		{
-			if (GridManager.isOnConveyor (points.itemGridPoints))
+			if (GridManager.isInsideConveyer (transform.parent.position) && GameManager.GetCurrentItem() == this)
 				GridManager.getConveyor ().addToConveyor (this);
 			else
 			{
