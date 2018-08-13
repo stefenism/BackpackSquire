@@ -23,7 +23,8 @@ public class ItemBlock : GridObject {
 
 	public ItemPoints points;
 	public float rotateSpeed = 10;
-	public float fixedFramesToWaitForFall = .5f;
+	public float fixedFramesToWaitForFall = 25f;
+	public float timeBeforeConveyorMove = .5f;
 
 	public AudioClip rotateSound;
 	public AudioClip pickupItem;
@@ -177,7 +178,7 @@ public class ItemBlock : GridObject {
 		leftTimer += Time.fixedDeltaTime;
 		if (isInConveyor () && GameManager.GetCurrentItem() != this)
 		{
-			if (leftTimer >= Time.fixedDeltaTime * fixedFramesToWaitForFall)
+			if (leftTimer >= timeBeforeConveyorMove)
 			{
 				leftTimer = 0;
 				doMoveLeft ();

@@ -24,14 +24,7 @@ public class GameManager : MonoBehaviour {
 	const string ENDSCREENSTRING = "WinScreen";
 
 	void Awake()
-	{
-		if (gameDaddy == null)
-			gameDaddy = this;
-		else if (gameDaddy == this)
-			Destroy (gameObject);
-
-		DontDestroyOnLoad (gameObject);
-
+	{		
 		Initialize ();
 	}
 
@@ -44,14 +37,18 @@ public class GameManager : MonoBehaviour {
 		{
 			healthTimer = 0;
 			changeHealth (-1);
-		}
-
-		if (Input.GetKeyDown (KeyCode.E))
-			gameDaddy.currentHealth = 0;
+		}			
 	}
 
 	void Initialize()
 	{
+		if (gameDaddy == null)
+			gameDaddy = this;
+		else if (gameDaddy == this)
+			Destroy (gameObject);
+
+		DontDestroyOnLoad (gameObject);
+
 		gameDaddy.currentGoldValue = 0;
 		gameDaddy.currentHealth = 100;
 	}
@@ -107,6 +104,9 @@ public class GameManager : MonoBehaviour {
 
 	void switchScreen()
 	{
+		Destroy (AudioManager.audioDaddy.gameObject);
+		Destroy (GridManager.gridDaddy.gameObject);
+		Destroy (gameObject);
 		SceneManager.LoadScene (ENDSCREENSTRING, LoadSceneMode.Single);
 	}
 

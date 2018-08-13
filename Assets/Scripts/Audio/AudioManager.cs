@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-	static AudioManager audioDaddy;
+	public static AudioManager audioDaddy;
 
 	public AudioSource sfxSource;
 	public AudioSource bgmSource;

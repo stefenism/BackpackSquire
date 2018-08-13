@@ -13783,8 +13783,17 @@ MonoBehaviour:
   - {fileID: 1510157678162336, guid: 92dd741864bc50c498c46d46c3f214c5, type: 2}
   - {fileID: 1564243961104718, guid: c4f25bef105176241ac7a30b0033f5dd, type: 2}
   - {fileID: 1782834833714680, guid: c00653bc2fbb0694d986c2256f1cad78, type: 2}
+  - {fileID: 1412058282246150, guid: 7acc43c7873195c4b827f01f2871b523, type: 2}
+  - {fileID: 1867915145553492, guid: 95dc1dd32211a4543b0caabf70a13660, type: 2}
+  - {fileID: 1510985771715898, guid: 66998aeb50881db449676a52d5e4ebdb, type: 2}
+  - {fileID: 1757141760215752, guid: 44951848d074c8c43a97ea8e5525fba3, type: 2}
+  - {fileID: 1675694530483006, guid: e02f78a7374554b42b7c16da0271fbc6, type: 2}
+  - {fileID: 1146019877862576, guid: d0f76cb8e16c0b548a918cdc204bf27a, type: 2}
+  - {fileID: 1430482268406872, guid: 04ad4743341678a4eaba309e7e221625, type: 2}
+  - {fileID: 1225566999098446, guid: b674e7676f8f51d48a0e334ca084405b, type: 2}
+  - {fileID: 1311533189002368, guid: 5cff3cc9beefeaa4bba265f4dcb90f08, type: 2}
   spawnPoint: {fileID: 4687682838951322}
-  timeBeforeSpawning: 3
+  timeBeforeSpawning: 1.5
 --- !u!114 &114091758375613016
 MonoBehaviour:
   m_ObjectHideFlags: 1
