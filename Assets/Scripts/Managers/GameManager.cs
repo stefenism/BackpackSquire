@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	private float gameTimer = 0;
 	private float healthTimer = 0;
 
-	const string ENDSCREENSTRING = "endScreen";
+	const string ENDSCREENSTRING = "WinScreen";
 
 	void Awake()
 	{
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour {
 
 	void Initialize()
 	{
-		//initialize stuff here
+		gameDaddy.currentGoldValue = 0;
+		gameDaddy.currentHealth = 100;
 	}
 
 	static public void setCurrentItem(ItemBlock newItem)
@@ -106,9 +107,10 @@ public class GameManager : MonoBehaviour {
 
 	void switchScreen()
 	{
-		SceneManager.LoadScene (ENDSCREENSTRING, LoadSceneMode.Additive);
+		SceneManager.LoadScene (ENDSCREENSTRING, LoadSceneMode.Single);
 	}
 
+	static public int getGold(){return gameDaddy.currentGoldValue;}
 	static public float getGameTimer(){return gameDaddy.gameTimer;}
 		
 	static public ItemBlock GetCurrentItem(){return GameManager.gameDaddy.currentItem;}

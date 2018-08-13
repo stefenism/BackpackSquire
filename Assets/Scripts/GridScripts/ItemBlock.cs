@@ -23,9 +23,11 @@ public class ItemBlock : GridObject {
 
 	public ItemPoints points;
 	public float rotateSpeed = 10;
-	public float fixedFramesToWaitForFall = 3;
+	public float fixedFramesToWaitForFall = .5f;
 
 	public AudioClip rotateSound;
+	public AudioClip pickupItem;
+	public AudioClip dropItem;
 
 	private float fallTimer = 0;
 	private float leftTimer = 0;
@@ -45,6 +47,8 @@ public class ItemBlock : GridObject {
 
 		setIdle ();
 		setConveyor ();
+
+		value.initialize ();
 	}
 	
 	// Update is called once per frame
@@ -56,6 +60,7 @@ public class ItemBlock : GridObject {
 		checkRotation ();
 
 		checkBelow ();
+
 	}
 
 	public override void CheckMouseOver()
@@ -83,6 +88,7 @@ public class ItemBlock : GridObject {
 					setDragging ();
 					sprite.color = dragColor;
 					GameManager.setCurrentItem (this);
+					AudioManager.playSfx (pickupItem);
 				}
 			}
 		}
@@ -114,19 +120,22 @@ public class ItemBlock : GridObject {
 		{
 			if (GameManager.GetCurrentItem () != null)
 				sprite.color = dragColor;
+			
 			if (Input.GetMouseButton (0))
 			{
 				if (GameManager.GetCurrentItem () == null)
 				{
 					sprite.color = dragColor;
 					GameManager.setCurrentItem (this);
+					AudioManager.playSfx (pickupItem);
 				}
 			}
 		}
 
 		if (Input.GetMouseButtonUp (0))
 		{
-			setDropped ();
+			if(GameManager.GetCurrentItem() == this)
+				setDropped ();
 
 			if (!GridManager.IsInCurrentList (this))
 			{
@@ -218,6 +227,7 @@ public class ItemBlock : GridObject {
 	{
 		setIdle ();
 		GameManager.setCurrentItem (null);
+		AudioManager.playSfx (dropItem);
 		sprite.color = defaultColor;
 	}
 

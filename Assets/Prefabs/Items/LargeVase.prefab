@@ -353,6 +353,8 @@ MonoBehaviour:
   rotateSpeed: 10
   fixedFramesToWaitForFall: 60
   rotateSound: {fileID: 8300000, guid: 640e1be215abcde4095620ff30eed3ec, type: 3}
+  pickupItem: {fileID: 8300000, guid: f5d4893cf2d6ae94da5c64e9d49fe824, type: 3}
+  dropItem: {fileID: 8300000, guid: 18dccf24833419c439d49894518e1515, type: 3}
 --- !u!114 &114769325961910620
 MonoBehaviour:
   m_ObjectHideFlags: 1

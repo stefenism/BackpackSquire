@@ -5,6 +5,7 @@ using UnityEngine;
 public class Potions : ItemBlock {
 
 	public int healValue;
+	public AudioClip potionCosumptionNoise;
 
 	public override void checkDrag()
 	{
@@ -32,6 +33,7 @@ public class Potions : ItemBlock {
 	{
 		removeItem ();
 		GameManager.changeHealth (healValue);
+		AudioManager.playSfx (potionCosumptionNoise);
 		Destroy (transform.parent.gameObject);
 	}
 }
